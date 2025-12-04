@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture - 1: EE3011 MODELING and CONTROL PART II</title>
+    <style>
+        body {
+            font-family: 'Cambria', 'Times New Roman', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f6f2;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+            margin-top: 30px;
+        }
+        h4 {
+            color: #3498db;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .formula {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+            font-family: 'Latin Modern Math', serif;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .formula-group {
+            background-color: #e8f4fc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+        ul, ol {
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .highlight {
+            background-color: #fffacd;
+            padding: 3px 5px;
+            border-radius: 3px;
+        }
+        .section-divider {
+            border-top: 1px dashed #95a5a6;
+            margin: 30px 0;
+        }
+        .exercise {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #2ecc71;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
+
+    <!-- MathJax config WITHOUT any $ delimiters -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [["\\(", "\\)"]],
+                displayMath: [["\\[", "\\]"]],
+                processEscapes: true,
+                processEnvironments: true,
+                tags: "ams"
+            },
+            chtml: {
+                scale: 1.05,
+                matchFontHeight: true
+            },
+            startup: {
+                ready: () => {
+                    console.log("MathJax initialized with no-dollar syntax");
+                    MathJax.startup.defaultReady();
+                }
+            }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Lecture - 1: EE3011 MODELING and CONTROL PART II</h1>
+
+        <section class="course-info">
+            <h2>Course Information</h2>
+            <ul>
+                <li><strong>Professor:</strong> Xie Lihua</li>
+                <li><strong>School:</strong> School of EEE</li>
+                <li><strong>Room:</strong> S2-B2c-94</li>
+                <li><strong>Extension:</strong> 4524</li>
+                <li><strong>Email:</strong> <a href="mailto:elhxie@ntu.edu.sg">elhxie@ntu.edu.sg</a></li>
+                <li><strong>Website:</strong> <a href="http://www.ntu.edu.sg/home/elhxie" target="_blank">http://www.ntu.edu.sg/home/elhxie</a></li>
+            </ul>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section class="contents">
+            <h2>Contents</h2>
+            <ol>
+                <li><strong>Frequency Domain Analysis</strong>
+                    <ul>
+                        <li>Bode plots of transfer functions</li>
+                        <li>Frequency domain modeling</li>
+                        <li>Nyquist stability</li>
+                        <li>Relative stability</li>
+                    </ul>
+                </li>
+                <li><strong>Frequency Domain Design</strong>
+                    <ul>
+                        <li>Lead compensator</li>
+                        <li>Lag compensator</li>
+                        <li>PID Tuning</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section class="textbook">
+            <h2>Textbook</h2>
+            <ul>
+                <li><strong>Title:</strong> Modern Control Engineering</li>
+                <li><strong>Author:</strong> K. Ogata</li>
+                <li><strong>Edition:</strong> 5th Edition</li>
+                <li><strong>Publisher:</strong> Prentice Hall, 2010</li>
+            </ul>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section class="chapter">
+            <h2>Chapter 1: FREQUENCY DOMAIN ANALYSIS</h2>
+
+            <h3>1.1 Introduction</h3>
+
+            <h4>RC-Network Example</h4>
+            <div class="formula">
+                \[ \frac{V_{0}(s)}{V_{i}(s)} = \frac{1/sC}{R+1/sC} = \frac{1}{\tau s+1}, \quad \tau = RC \]
+            </div>
+            <div class="formula">
+                \[ v_{i}(t) = 2\sin(\omega t + 30^\circ) \]
+            </div>
+
+            <ul>
+                <li>\( R = 1k\Omega \)</li>
+                <li>\( C = 10^{-4}F \)</li>
+                <li>\( \tau = 0.1\ \text{sec} \)</li>
+            </ul>
+
+            <h4>General Frequency Response</h4>
+
+            <div class="formula">
+                \[ r(t) = A \sin(\omega t) \]
+            </div>
+
+            <div class="formula">
+                \[ R(s) = \frac{A \omega}{s^2 + \omega^2} \]
+            </div>
+
+            <div class="formula">
+                \[ Y(s) = G(s)R(s) \]
+            </div>
+
+            <div class="formula">
+                \[ y_{ss}(t) = A |G(j\omega)| \sin(\omega t + \angle G(j\omega)) \]
+            </div>
+
+            <ul>
+                <li>Amplitude: \( A_o = |G(j\omega)| A \)</li>
+                <li>Phase: \( \phi_o = \angle G(j\omega) + \phi_i \)</li>
+            </ul>
+
+            <h4>Example 1.1: RC-Network</h4>
+            <div class="formula">
+                \[ G(s) = \frac{1}{0.1s + 1} \]
+            </div>
+
+            <p>Input: \( r(t) = 2\sin(\omega t + 30^\circ) \)</p>
+
+            <div class="formula-group">
+                <p><strong>For \( \omega = 5 \) rad/s:</strong></p>
+                <div class="formula">\[ |G(j5)| = 0.8944 \]</div>
+                <div class="formula">\[ \phi(5) = -26.6^\circ \]</div>
+                <div class="formula">\[ y_{ss}(t) = 2 \cdot 0.8944 \sin(5t + 30^\circ - 26.6^\circ ) \]</div>
+            </div>
+
+            <div class="formula-group">
+                <p><strong>For \( \omega = 50 \) rad/s:</strong></p>
+                <div class="formula">\[ |G(j50)| = 0.1961 \]</div>
+                <div class="formula">\[ \phi(50) = -78.7^\circ \]</div>
+                <div class="formula">\[ y_{ss}(t) = 2 \cdot 0.1961 \sin(50t + 30^\circ - 78.7^\circ ) \]</div>
+            </div>
+
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section class="exercises">
+            <h2>Exercises</h2>
+
+            <div class="exercise">
+                <p><strong>Exercise 1.1:</strong></p>
+                <ol type="a">
+                    <li>An engineer applies \( r(t) = 2\sin(t) \) and measures \( y(t)=0.4\sin(t - 1.55) \).  
+                        Find gain & phase.</li>
+
+                    <li>A transmitter has gain \(10\text{ dB}\) and phase \( -60^\circ \) at \( \omega = 10 \).  
+                        Input is \( r(t) = 5\cos(10t - \pi/2) \).  
+                        Find output.</li>
+                </ol>
+            </div>
+
+            <div class="exercise">
+                <p><strong>Exercise 1.2:</strong></p>
+                <div class="formula">
+                    \[ G_{1}(s) = \frac{10(s+1)}{s(s+2)}, \qquad 
+                       G_{2}(s) = \frac{5}{s^{2}+s+1} \]
+                </div>
+
+                <p>Compute magnitude & phase at 1 rad/s and 10 rad/s.  
+                Then find output for input \( r(t)=2\sin(t - 30^\circ) \).</p>
+            </div>
+
+        </section>
+
+    </div>
+</body>
+</html>
